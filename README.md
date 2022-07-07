@@ -35,14 +35,14 @@ npm install ethers
 - Create test files and test it
 
 ```
-truffle test
+npx truffle test
 ```
 
 - Deploy It
 
 ```
-truffle migrate --network [network-name]
-truffle run verify [CONTRACT_NAME] --network [network-name]
+npx truffle migrate --network [network-name]
+npx truffle run verify [CONTRACT_NAME] --network [network-name]
 ```
 
 ## 2. Generate all NFTs JPEGS with Jsons
@@ -95,13 +95,13 @@ Enter the console in the terminal
 For local connection to host:
 
 ```
-truffle console 
+npx truffle console 
 ```
 
 For any other network
 
 ```
-truffle console --network [network-name]
+npx truffle console --network [network-name]
 ```
 
 In the console type the address of your smart contract 

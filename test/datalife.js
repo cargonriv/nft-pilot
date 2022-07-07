@@ -48,6 +48,35 @@ contract(SmartContractName, (accounts) => {
         });
     });
 
+    describe("lets test the whitelist", async () => {
+        let address_1 = '0xC627257eA77eD6B467D4376D237Bce8acB816C91';
+        let address_2 = '0xe6b543E2BF7AFD7759Bae68F6E456d13d638e076';
+
+        it("enable AllowList", async () => {
+            await sc.setIsAllowListActive(true);
+            const isAllowList = await sc.isAllowListActive();
+            assert.equal(isAllowList, true, "The allow list must be active.");
+        });
+
+        it("lets add 3 address to the whitelist with 10 tokens to mint", async () => {
+            await sc.setAllowList([address_1, address_2, currentAccount], 10);
+        });
+
+        it("lets verify if address number 1 can mint 10", async () => {
+            const getValueAdd_1 = await sc.numAvailableToMint(address_1);
+            assert.equal(getValueAdd_1 , 10, "The address #1 mint is limited to 10 NFTs");
+        });
+
+        it("lets verify if address number 2 can mint 10", async () => {
+            const getValueAdd_2 = await sc.numAvailableToMint(address_2);
+            assert.equal(getValueAdd_2 , 10, "The address #2 mint is limited to 10 NFTs");
+        });
+
+        it("test a whitelist NFT MINT", async () => {
+            const mintNFT = await sc.mintAllowList(2, {value: 160000000000000000});
+        });
+    });
+
     describe("lets test the utils", async () => {
         it("lets reserve the NFTs", async () => {
             await sc.reserve(1);

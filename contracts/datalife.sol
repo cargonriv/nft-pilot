@@ -17,6 +17,40 @@ contract datalife is ERC721, ERC721Royalty, ERC721Enumerable, Ownable {
     constructor() ERC721("datalife", "LIFE") {
     }
 
+   /**
+     * Whitelist
+     */
+    bool public isAllowListActive = false;
+    mapping(address => uint8) private _allowList;
+
+    function setIsAllowListActive(bool _isAllowListActive) external onlyOwner {
+        isAllowListActive = _isAllowListActive;
+    }
+
+    function setAllowList(address[] calldata addresses, uint8 numAllowedToMint) external onlyOwner {
+        for (uint256 i = 0; i < addresses.length; i++) {
+            _allowList[addresses[i]] = numAllowedToMint;
+        }
+    }
+
+    function numAvailableToMint(address addr) external view returns (uint8) {
+        return _allowList[addr];
+    }
+
+    function mintAllowList(uint8 numberOfTokens) external payable {
+        uint256 ts = totalSupply();
+        require(isAllowListActive, "Allow list is not active");
+        require(numberOfTokens <= _allowList[msg.sender], "Exceeded max available to purchase");
+        require(numberOfTokens <= MAX_PUBLIC_MINT, "Exceeded max token purchase");
+        require(ts + numberOfTokens <= MAX_SUPPLY, "Purchase would exceed max tokens");
+        require(PRICE_PER_TOKEN * numberOfTokens <= msg.value, "Ether value sent is not correct");
+
+        _allowList[msg.sender] -= numberOfTokens;
+        for (uint256 i = 0; i < numberOfTokens; i++) {
+            _safeMint(msg.sender, ts + i);
+        }
+    }
+
     /**
      * Mint
      */

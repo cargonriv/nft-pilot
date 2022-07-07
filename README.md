@@ -4,12 +4,12 @@ This is an outline of how an NFT project launch should work.
 
 **Do not use the keys in the secrets.json they were already exposed to the public
 
-**Zoom class link [https://us06web.zoom.us/rec/share/ZTeDSj1VlUNzfQjyym6IuRYYRSNF9Ul3r5Vg-zzJkgcp50b5w4FkQuqm0XxFD92w.67o2UYj0bIUl43Kv?startTime=1656177211000](https://us06web.zoom.us/rec/share/ZTeDSj1VlUNzfQjyym6IuRYYRSNF9Ul3r5Vg-zzJkgcp50b5w4FkQuqm0XxFD92w.67o2UYj0bIUl43Kv?startTime=1656177211000)
-
 ## 0. Prep work
 
 - Install [Node.js](https://nodejs.org/) to run.
 - Create a new folder to work on it
+
+- Get all the APIs for the secret file (mnemonic, infura, etherscan)
 
 ## 1. Create the Smart Contract and test it
 
@@ -19,48 +19,48 @@ This is an outline of how an NFT project launch should work.
 npm install truffle 
 npx truffle init
 npm install @truffle/hdwallet-provider
+npm install truffle-hdwallet-provider
 npm install truffle-plugin-verify
-npm install ethers
 npm install @openzeppelin/contracts
+npm install hardhat
+npm install ethers
 ```
 
 - Configure the project using truffle-config.js as a template
 
-- Create the NFT using contact.sol as a template
+- Create the NFT using contract.sol as a template
 
 - Create the deployment .js file using 2_deploy_contracts.js
-
-- Create the secrets.json file and get all the APIs for the secret file (mnemonic, infura, etherscan)
 
 - Create test files and test it
 
 ```
-npx truffle test
+truffle test
 ```
 
 - Deploy It
 
 ```
-npx truffle migrate --network [network-name]
-npx truffle run verify [CONTRACT_NAME] --network [network-name]
+truffle migrate --network [network-name]
+truffle run verify [CONTRACT_NAME] --network [network-name]
 ```
 
 ## 2. Generate all NFTs JPEGS with Jsons
 
 - Create your art in .png formart and put it ready for IPFS
-- Upload the images
+- Upload the folder of artworks or assets
 - Get the hash and put it in the json file
-- Then upload the json file a IPFS
+- Then upload the json folder to IPFS
 
 ## 3. Create provenance using hash.php scripts
 
-- Hash all images 
+- Hash all images
 - Take that chain sequence and then hash it
-- Thats the provenance
+- That final hash is the provenance
 
 ## 4. Practice 2 more deployments of the smart contract
 
-- This is to make sure the smart contract works correctly
+- This practice is to make sure the smart contract works correctly
 
 ## 5. How to do a project launch
 
@@ -68,40 +68,40 @@ To perform this actions you can use etherscan platform and directly interact wit
 
 Preparation
 
-- Set max amount of token to mint per wallet (setMaxPublicMint)
-- Set price per nft token this price per token is done in wei (setPricePerToken) [Ether/Wei Converter](https://eth-converter.com)
-    - 80000000000000000 = 0.08 ETH
+- Set max amount of token to mint per wallet (setMaxPublicMint(int))
+- Set price per nft token this price per token is done in wei (setPricePerToken(int)) [Ether/Wei Converter](https://eth-converter.com) i.e.
+    - 50000000000000000 = 0.05 ETH
     - 200000000000000000 = 0.2 ETH
-- Set up provenance value (setProvenance)
-- Set up the royalties and wallet (setDefaultRoyalty(address, fee))
+- Set up provenance value (setProvenance('provenanceHash'))
+- Set up the royalties and wallet (setDefaultRoyalty('address', fee))
     - fee is in basis points: 1000 = 10%
     - 750 = 7.5%
-- Perform the reserve function (reserve) if needed
+- Perform the reserve function if needed (reserve(int))
 - Setup OpenSea Collection Profile and royalty address (Images, Description, Socials)
 
 NFT Sale
 
-- Enable sale (setSaleState)
-- On Reveal Add IPFS image url (setBaseURI)
+- Enable sale (setSaleState(bool))
+- On Reveal, Add IPFS image url (setBaseURI('ipfs://jsonFolderHash'))
 
 After Sale Ends
 
-- Turn off contract (setSaleState)
+- Turn off contract activity for sales (setSaleState(bool))
 
 ## 6. How to interact with a smart contract via terminal
 
 Enter the console in the terminal
 
-For local host 
+For local connection to host:
 
 ```
-npx truffle console 
+truffle console 
 ```
 
 For any other network
 
 ```
-npx truffle console --network [network-name]
+truffle console --network [network-name]
 ```
 
 In the console type the address of your smart contract 
@@ -195,7 +195,7 @@ These are the smart contracts tests
             assert.equal(getValueAdd_2 , 10, "The address #2 mint is limited to 10 NFTs");
         });
 
-        it("test a whitlist NFT MINT", async () => {
+        it("test a whitelist NFT MINT", async () => {
             const mintNFT = await sc.mintAllowList(2, {value: 160000000000000000});
         });
     });

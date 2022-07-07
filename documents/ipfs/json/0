@@ -1,18 +1,18 @@
 {
-  "name": "Lots Of Laugh #1",
-  "description": "Some funny NFT",
-  "image": "ipfs://IPFS_HASH/1.png",
+  "name": "DataLife PFP",
+  "description": "DataLife NFT PFP",
+  "image": "ipfs://QmW7zxkQgj2atF1FZgGCsdHojZPV1n6Bt7heK2mpTZEo2j/0.png",
   "dna": "d64945d21aa161676a91ca9c455d59bcb3055e08",
   "edition": 1,
   "date": 1655755371446,
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Black"
+      "value": "NA"
     },
     {
       "trait_type": "Body",
-      "value": "Red"
+      "value": "Black"
     }
   ],
   "compiler": "by fun people"

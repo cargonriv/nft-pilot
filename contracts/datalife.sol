@@ -2,19 +2,19 @@
 
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Royalty.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 
-contract LotsOfLaugh is ERC721, ERC721Enumerable, ERC721Royalty, Ownable {
+contract datalife is ERC721, ERC721Royalty, ERC721Enumerable, Ownable {
 
     /**
      * Token
      */
-    uint256 public constant MAX_SUPPLY = 3;
+    uint256 public constant MAX_SUPPLY = 3272;
 
-    constructor() ERC721("LotsOfLaugh", "LOL") {
+    constructor() ERC721("datalife", "LIFE") {
     }
 
     /**

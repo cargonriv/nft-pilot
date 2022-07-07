@@ -1,4 +1,4 @@
-const SmartContractName = "EnterContractNameHere";
+const SmartContractName = "datalife";
 
 const SmartContract = artifacts.require(SmartContractName);
 const ethers = require('ethers');
@@ -17,9 +17,9 @@ contract(SmartContractName, (accounts) => {
             assert.equal(saleIsActive, false, "The sale must be disabled.");
         }); 
 
-        it("is Max Supply 3?", async () => {
+        it("is Max Supply 3272?", async () => {
             const MAX_SUPPLY = await sc.MAX_SUPPLY();
-            assert.equal(MAX_SUPPLY, 3, "The max supply must be 3.");
+            assert.equal(MAX_SUPPLY, 3272, "The max supply must be 3272.");
         }); 
 
         it("is Max Public Mint 1", async () => {
@@ -28,11 +28,11 @@ contract(SmartContractName, (accounts) => {
             assert.equal(MAX_PUBLIC_MINT, 1, "The max public mint must be 1");
         }); 
         
-        it("is Mint Price 0.08 ETH?", async () => {
-            const mintPrice = ethers.utils.parseEther('0.08');
+        it("is Mint Price 0.05 ETH?", async () => {
+            const mintPrice = ethers.utils.parseEther('0.05');
             await sc.setPricePerToken(mintPrice);
             const PRICE_PER_TOKEN = await sc.PRICE_PER_TOKEN();
-            assert.equal(PRICE_PER_TOKEN, 80000000000000000, "The mint price must be 0.08 ether");
+            assert.equal(PRICE_PER_TOKEN, 50000000000000000, "The mint price must be 0.05 ether");
         }); 
     });
 
@@ -44,7 +44,7 @@ contract(SmartContractName, (accounts) => {
         });
 
          it("test a normal NFT MINT", async () => {
-            const mintNFT = await sc.mint(2, {value: 160000000000000000});
+            const mintNFT = await sc.mint(1, {value: 50000000000000000});
         });
     });
 
@@ -54,7 +54,7 @@ contract(SmartContractName, (accounts) => {
         });
 
         it("lets test max reserve function of NFTs", async () => {
-            await sc.reserve(4);
+            await sc.reserve(1);
         });
 
         it("test withdraw amount", async () => {
